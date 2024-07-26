@@ -3,7 +3,19 @@ defmodule OpenAI.Client do
   alias OpenAI.{Config, Stream}
   use HTTPoison.Base
 
-  def process_url(url), do: Config.api_url() <> url
+  def process_url(url) do
+    # If the URL is already a full URL, we don't need to do anything.
+    # Otherwise, we need to prepend the API URL.
+    case URI.parse(url) do
+      %URI{scheme: nil} ->
+        # use the default provider
+        Config.api_url() <> url
+
+      _ ->
+        # the URL is already a full URL
+        url
+    end
+  end
 
   def process_response_body(body) do
     try do
