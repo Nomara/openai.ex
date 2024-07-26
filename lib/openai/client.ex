@@ -120,7 +120,7 @@ defmodule OpenAI.Client do
 
   def query_params(request_options, _params), do: request_options
 
-  defp full_url(url, %Config{api_url: api_url}) do
+  defp full_url(url, %Config{api_url: api_url}) when is_binary(api_url) do
     api_url <> url
   end
 
