@@ -20,6 +20,8 @@ defmodule OpenAI.Config do
     :http_options
   ]
 
+  # FIXME: need :api_url?
+
   def start_link(opts), do: GenServer.start_link(__MODULE__, opts, name: __MODULE__)
 
   @impl true

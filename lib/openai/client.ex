@@ -108,6 +108,14 @@ defmodule OpenAI.Client do
 
   def query_params(request_options, _params), do: request_options
 
+  defp full_url(url, %Config{api_url: api_url}) do
+    api_url <> url
+  end
+
+  defp full_url(url, _config) do
+    url
+  end
+
   def api_get(url, params \\ [], config) do
     request_options =
       config
@@ -115,6 +123,7 @@ defmodule OpenAI.Client do
       |> query_params(params)
 
     url
+    |> full_url(config)
     |> get(request_headers(config), request_options)
     |> handle_response()
   end
@@ -129,11 +138,13 @@ defmodule OpenAI.Client do
       true ->
         Stream.new(fn ->
           url
+          |> full_url(config)
           |> post(body, request_headers(config), stream_request_options(config))
         end)
 
       false ->
         url
+        |> full_url(config)
         |> post(body, request_headers(config), request_options(config))
         |> handle_response()
     end
@@ -151,12 +162,14 @@ defmodule OpenAI.Client do
     }
 
     url
+    |> full_url(config)
     |> post(body, request_headers(config), request_options(config))
     |> handle_response()
   end
 
   def api_delete(url, config) do
     url
+    |> full_url(config)
     |> delete(request_headers(config), request_options(config))
     |> handle_response()
   end
