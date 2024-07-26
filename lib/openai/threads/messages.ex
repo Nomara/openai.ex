@@ -3,7 +3,7 @@ defmodule OpenAI.Threads.Messages do
   alias OpenAI.Client
   alias OpenAI.Config
 
-  @base_url "/v1/threads"
+  @base_url "/threads"
 
   def url(thread_id), do: "#{@base_url}/#{thread_id}/messages"
   def url(thread_id, message_id), do: "#{@base_url}/#{thread_id}/messages/#{message_id}"

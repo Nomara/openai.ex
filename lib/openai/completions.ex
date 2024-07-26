@@ -3,7 +3,7 @@ defmodule OpenAI.Completions do
   alias OpenAI.Client
   alias OpenAI.Config
 
-  @base_url "/v1/completions"
+  @base_url "/completions"
   @engines_base_url "/v1/engines"
 
   def url(), do: @base_url

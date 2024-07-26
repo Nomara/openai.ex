@@ -12,7 +12,7 @@ defmodule OpenAI.Config do
 
   use GenServer
 
-  @openai_url "https://api.openai.com"
+  @openai_url "https://api.openai.com/v1"
 
   @config_keys [
     :api_key,
